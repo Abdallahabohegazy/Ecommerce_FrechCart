@@ -3,6 +3,7 @@ import axios from 'axios';
 import Loading from '../Loading/Loading.jsx';
 import Brand from '../Brand/Brand.jsx';
 import { useQuery } from 'react-query';
+import { Helmet } from 'react-helmet';
 
 export default function Brands() {
   function getBrands() {
@@ -26,6 +27,11 @@ export default function Brands() {
 
   return (
     <div className="container my-5">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Brands Page</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <div className="row">
         {data?.data.data.map((brand) => {
           return <Brand brand={brand} key={brand._id} />

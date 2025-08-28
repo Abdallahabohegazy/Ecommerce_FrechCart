@@ -3,10 +3,11 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Loading from '../Loading/Loading.jsx';
 import { cartContext } from '../../context/cartContext.js';
+import { Helmet } from 'react-helmet';
 
 
 export default function ProductDetails() {
-    let {counter , setCounter}=useContext(cartContext);
+    let { counter, setCounter } = useContext(cartContext);
     let x = useParams();
     const [productDetails, setProductDetails] = useState({});
     const [loading, setLoading] = useState(true);
@@ -21,6 +22,11 @@ export default function ProductDetails() {
     if (loading) return <Loading />
     return (
         <div>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Product Details </title>
+                <link rel="canonical" href="http://mysite.com/example" />
+            </Helmet>
             <div className="container my-5">
                 <div className="row">
                     <div className="col-md-3 ">
@@ -35,7 +41,7 @@ export default function ProductDetails() {
                                 {productDetails.ratingsAverage}
                             </div>
                         </div>
-                        <button onClick={()=>setCounter(counter +1 )} className='btn bg-main w-100 text-white'>Add To Cart</button>
+                        <button onClick={() => setCounter(counter + 1)} className='btn bg-main w-100 text-white'>Add To Cart</button>
                     </div>
                 </div>
             </div>

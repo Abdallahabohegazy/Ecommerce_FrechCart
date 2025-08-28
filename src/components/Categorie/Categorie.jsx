@@ -1,8 +1,14 @@
 import React from 'react'
+import { Helmet } from 'react-helmet'
 
 export default function Categorie({ categorie }) {
     return (
         <>
+            <Helmet>
+                <meta charSet="utf-8" />
+                <title>Categories Page</title>
+                <link rel="canonical" href="http://mysite.com/example" />
+            </Helmet>
             <div className="col-md-3 mb-4">
                 <div className="card p-2 shadow-sm border-1 brand-card">
                     <div className="overflow-hidden">

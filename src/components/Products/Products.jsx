@@ -3,13 +3,15 @@ import axios from 'axios'
 import Loading from '../Loading/Loading.jsx';
 import Product from '../Product/Product.jsx';
 import { useQuery } from 'react-query';
+import { Helmet } from 'react-helmet';
+
 
 export default function Products() {
 
-  function getProducts(){
+  function getProducts() {
     return axios.get('https://ecommerce.routemisr.com/api/v1/products');
   }
-  let {data , isLoading} = useQuery('getProducts',getProducts)
+  let { data, isLoading } = useQuery('getProducts', getProducts)
   // console.log(data?.data.data);
 
 
@@ -27,11 +29,16 @@ export default function Products() {
 
 
 
-  if(isLoading) return <Loading/> 
+  if (isLoading) return <Loading />
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Products Page</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <div className="container my-5">
-        <div className="row">
+        <div className="row g-3">
           {data?.data.data.map((product) => {
             return <Product product={product} key={product._id} />
           })}

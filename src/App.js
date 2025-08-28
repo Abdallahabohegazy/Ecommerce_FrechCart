@@ -2,7 +2,7 @@ import React from 'react'
 import Home from './components/Home/Home.jsx'
 import Products from './components/Products/Products.jsx'
 import Brands from './components/Brands/Brands.jsx'
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { RouterProvider,  createHashRouter } from 'react-router-dom'
 import MainLayout from './Layouts/MainLayout.jsx'
 import Cart from './components/Cart/Cart.jsx'
 import WishList from './components/WishList/WishList.jsx'
@@ -23,7 +23,7 @@ import WishlistContextProvider from './context/wishlistContext.js'
 
 export default function App() {
 
-  let routes = createBrowserRouter([
+  let routes = createHashRouter([
     {
       path: '/', element: <MainLayout />, children: [
         { index: true, element: <ProtectedRoutes><Home /></ProtectedRoutes> },
@@ -49,9 +49,6 @@ export default function App() {
   return (
     <>
     <WishlistContextProvider>
-      <Offline>
-        <div className='offline'>You are offline Now!</div>
-      </Offline>
       <ToastContainer  theme='colored' autoClose={1000}/>
       <CartContextProvider>
         <RouterProvider router={routes} />

@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useFormik } from 'formik'
 import React, { useState } from 'react'
+import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 
 export default function Signup() {
@@ -27,12 +29,14 @@ export default function Signup() {
   let navigate = useNavigate();
   const [errorMsg, setErrorMsg] = useState('');
   const [loading, setLoading] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
 
   function sendDataToApi(values) {
+
     setLoading(false);
     axios.post('https://ecommerce.routemisr.com/api/v1/auth/signup', values)
       .then(({ data }) => {
-        if(data.message === 'success'){
+        if (data.message === 'success') {
           navigate('/signin')
         }
       }).catch((err) => {
@@ -67,6 +71,11 @@ export default function Signup() {
   // console.log(register.errors);
   return (
     <>
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Signup Page</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <div>
         <div className="w-75 m-auto my-4">
           <h2>Register Now:</h2>
@@ -94,15 +103,37 @@ export default function Signup() {
             />
             {register.errors.email && register.touched.email ? <div className="alert alert-danger">{register.errors.email}</div> : ''}
             <label htmlFor="password">Password:</label>
-            <input
-              value={register.values.password}
-              onChange={register.handleChange}
-              type="password"
-              name="password"
-              className="form-control mb-3"
-              id="password"
-              onBlur={register.handleBlur}
-            />
+            <div style={{ position: 'relative' }}>
+              <input
+                value={register.values.password}
+                onChange={register.handleChange}
+                type={showPassword ? 'text' : 'password'}
+                name="password"
+                className="form-control mb-3"
+                id="password"
+                onBlur={register.handleBlur}
+                style={{ paddingRight: '40px' }}
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(prev => !prev)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+                style={{
+                  position: 'absolute',
+                  right: '10px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  background: 'transparent',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: 0
+                }}
+              >
+                {showPassword ? <AiOutlineEyeInvisible size={20} /> : <AiOutlineEye size={20} />}
+              </button>
+            </div>
+
+
             {register.errors.password && register.touched.password ? <div className="alert alert-danger">{register.errors.password}</div> : ''}
             <label htmlFor="rePassword">rePassword:</label>
             <input
@@ -117,8 +148,8 @@ export default function Signup() {
             {register.errors.rePassword && register.touched.rePassword ? <div className="alert alert-danger">{register.errors.rePassword}</div> : ''}
             {errorMsg ? <div className="alert alert-danger">{errorMsg}</div> : ''}
             <button disabled={!(register.dirty && register.isValid)} type='submit' className="btn bg-main text-white">{
-                loading ? 'Sign UP' : <i className='fa fa-spinner fa-spin'></i>
-              }</button>
+              loading ? 'Sign UP' : <i className='fa fa-spinner fa-spin'></i>
+            }</button>
           </form>
         </div>
       </div>

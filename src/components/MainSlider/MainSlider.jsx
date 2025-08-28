@@ -13,7 +13,18 @@ export default function MainSlider() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3500,
-    arrows : false,
+    arrows: false,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          dots: true,
+          arrows: false,
+          autoplay: true,
+          autoplaySpeed: 4000
+        }
+      }
+    ]
   };
   return (
     <div className='w-100'>
